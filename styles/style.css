@@ -1,0 +1,120 @@
+html {
+  font-size: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+h3 {
+  font-size: 20px;
+  text-align: center;
+}
+
+
+p, li {
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 1px;
+  padding: 10px;
+  background-color: rgb(200,200,200);
+  border-style: solid;
+  border-color: black;
+}
+
+
+html {
+  background-color: rgb(255, 255, 255);
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0rem;
+  padding: 0 px;
+  background-color:rgb(0,0,255);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h1 {
+  margin: 0;
+  padding: 20px 0;
+  color: rgb(0, 0, 0);
+}
+
+
+.image{
+}
+
+#generated_content{
+   padding : 100px;
+	position: relative;
+	top: 100%
+	min-height: 70vh;
+}
+
+#button-track {
+	 display : flex;
+    width: 1000vw;
+    grid-gap: 15px;
+    position: relative;
+    top: 25%;
+    transform: translate(30vw, -50%);
+    user-select: none;
+}
+
+.container {
+	display: flex;
+	width: 20vw;
+	height: 40vh;
+	cursor: pointer;
+	overflow: hidden;
+	object-position: 50% center;
+	position: relative;
+	background: rgb(0,0,0);
+}
+
+.container > .image {
+	width: 100%;
+	height: 100%;  
+	object-fit: cover;
+	loading: lazy;
+	draggable: false;
+}
+
+.Overlay{
+  font-size: 60px;
+  font-family: "Lobster Two", serif;
+  text-shadow:
+  -2px -2px 0 #ffffff,
+  -2px  2px 0 #ffffff,
+  2px  2px 0 #ffffff,
+  2px -2px 0 #ffffff;
+  position:absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  user-select: none;
+}
+
+@keyframes zoomin{
+  0% {
+   transform: scale(1);
+  }
+  50% {
+  	transform: scale(1.2);
+  }
+  100%{
+   transform: scale(1);
+  }
+}
+
+.container:hover > .image {
+   transform-origin: 200pxp, 200px;
+   animation: zoomin 800ms ease-in-out;
+}
