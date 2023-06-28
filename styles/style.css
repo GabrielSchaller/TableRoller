@@ -27,12 +27,14 @@ h3 {
   background-color: rgb(200,200,200);
   border-style: solid;
   border-color: black;
+  top: 0px;
 }
 
 p, li {
   font-size: 16px;
   line-height: 2;
   letter-spacing: 1px;
+  max-width: calc(50vw - 86px);
 }
 
 
@@ -45,7 +47,6 @@ body {
   min-height: 100vh;
   margin: 0rem;
   padding: 0 px;
-  background-image: url("/TableRoller/TableRoller/images/background.jpg");
   background-size: 100%;
   background-repeat: repeat;
   overflow-x: hidden;
@@ -69,7 +70,8 @@ button {
 }
 
 .inGeneratedContent{
-	display:flex;
+	display:inline-block;
+	vertical-align: top;
 }
 
 .image{
@@ -78,18 +80,19 @@ button {
 
 #pinwall{
 	padding-top: 15px;
-   padding-left: 100px;
-   padding-right: 100px;
+   padding-left: 50px;
+   padding-right: 50px;
 	position: relative;
-	}
+}
+
 #wrapper {
 	clear:both;
 }
 
 #generated_content{
    padding-top: 15px;
-   padding-left: 100px;
-   padding-right: 100px;
+   padding-left: 50px;
+   padding-right: 50px;
 	position: relative;
 	min-height: 30vh;
 }
@@ -131,14 +134,14 @@ button {
   2px  2px 0 #ffffff,
   2px -2px 0 #ffffff;
   position:absolute;
-  top: 75%;
+  bottom: 5%;
   width: 100%;
   text-align: center;
   z-index: 1000;
   user-select: none;
 }
 
-@keyframes lamezoomin{
+/*@keyframes lamezoomin{
   0% {
    transform: scale(1);
   }
@@ -162,4 +165,4 @@ button {
 .container:hover > .image {
    animation: zoomin 400ms ease-in-out;
    transform: scale(1.3);
-}
+}*/

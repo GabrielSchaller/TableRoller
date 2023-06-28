@@ -1,12 +1,12 @@
 toggle_minimize = function(parentNode){
 	if(parentNode.dataset.minimized == "true"){
 		parentNode.firstElementChild.remove();
-		const textNode = parentNode.firstElementChild;
+		const textNode = parentNode.querySelector("p");
 		parentNode.parentNode.insertAdjacentElement("afterend", parentNode);
-		textNode.style.display = "inline";
+		textNode.style.display = "block";
 		parentNode.dataset.minimized = "false";	
 	}else{
-		const textNode = parentNode.firstElementChild;
+		const textNode = parentNode.querySelector("p");
 		textNode.style.display = "none";
 		parentNode.parentNode.querySelector('.minimized').appendChild(parentNode);		
 		parentNode.insertAdjacentHTML("afterbegin",'<h3>' + parentNode.dataset.category + '</h3>')
@@ -34,7 +34,7 @@ pinMinimize = function(button){
 	}else{
 		document.getElementById('pinwall').querySelector('.minimized').appendChild(parentNode);
 		parentNode.dataset.minimized = "true";
-		const textNode = parentNode.firstElementChild;
+		const textNode = parentNode.querySelector("p");
 		textNode.style.display = "none";
 		parentNode.insertAdjacentHTML("afterbegin",'<h3>' + parentNode.dataset.category + '</h3>')
 		var buttons = parentNode.getElementsByClassName('forPinning');
@@ -59,10 +59,109 @@ generate_generic = function(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,n
   	output = output.replaceAll("$$$", "'");
   	const myHeading = document.getElementById("generated_content");
   	myHeading.querySelector('.minimized').insertAdjacentHTML("afterend",'<div class="inGeneratedContent" data-minimized="false" data-category="'+
-  	name.innerHTML.trim() +'">\n <p>'+output+
-  	'</p>\n<button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n </div>');
+  	name.innerHTML.trim() +'">\n<button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n <p>'+output+'</p> \n </div>');
   	output = "";
 }
+generate_Stats = function(name){
+	output += "4d6 drop lowest: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*6),Math.floor(Math.random()*6),Math.floor(Math.random()*6),Math.floor(Math.random()*6)];
+		dice.sort();
+		output += "" + (dice[1]+dice[2]+dice[3]+3);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "3d6: ";
+	for(let i=0;i<7;i++){
+		output += "" + (Math.floor(Math.random()*6)+Math.floor(Math.random()*6)+Math.floor(Math.random()*6)+3);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "2d10: ";
+	for(let i=0;i<7;i++){
+		output += "" + (Math.floor(Math.random()*10)+Math.floor(Math.random()*10)+2);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "3d8 drop lowest: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*8),Math.floor(Math.random()*8),Math.floor(Math.random()*8)];
+		dice.sort();
+		output += "" + (dice[1]+dice[2]+2);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "4d8 drop lowest two: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*8),Math.floor(Math.random()*8),Math.floor(Math.random()*8),Math.floor(Math.random()*8)];
+		dice.sort();
+		output += "" + (dice[2]+dice[3]+2);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "5d4 drop lowest: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4)];
+		dice.sort();
+		output += "" + (dice[1]+dice[2]+dice[3]+dice[4]+4);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "6d4 drop lowest two: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4)];
+		dice.sort();
+		output += "" + (dice[2]+dice[3]+dice[4]+dice[5]+4);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "6d4 drop highest: ";
+	for(let i=0;i<7;i++){
+		let dice = [Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4),Math.floor(Math.random()*4)];
+		dice.sort();
+		output += "" + (dice[0]+dice[1]+dice[2]+dice[3]+dice[4]+5);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	output += "5d4: ";
+	for(let i=0;i<7;i++){
+		output += "" + (Math.floor(Math.random()*4)+Math.floor(Math.random()*4)+Math.floor(Math.random()*4)+Math.floor(Math.random()*4)+Math.floor(Math.random()*4)+5);
+		if(i!=6){
+			output += ", "
+		}else{
+			output += "<br>";
+		}
+	}
+	const myHeading = document.getElementById("generated_content");
+  	myHeading.querySelector('.minimized').insertAdjacentHTML("afterend",'<div class="inGeneratedContent" data-minimized="false" data-category="'+
+  	name.innerHTML.trim() +'">\n <button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n <p>'+output+'</p>\n </div>');
+  	output = "";
+}
+
 generate_Dice = function(name){
 	const dice = [4,6,8,10,12,20,20,100];
 	for (die in dice){
@@ -70,10 +169,518 @@ generate_Dice = function(name){
 	}
 	const myHeading = document.getElementById("generated_content");
   	myHeading.querySelector('.minimized').insertAdjacentHTML("afterend",'<div class="inGeneratedContent" data-minimized="false" data-category="'+
-  	name.innerHTML.trim() +'">\n <p>'+output+
-  	'</p>\n<button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n </div>');
+  	name.innerHTML.trim() +'">\n <button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n <p>'+output+'</p>\n </div>');
   	output = "";
 }
+generate_AssassinGuild = function(name){
+  const The_guilds_symbol_is = ["A bat", "A skull", "A crow", "An eye", "A fish", "A flame", "A scorpion", "A dagger", "A spider", "A scythe", "A snake", "An arrow"];
+  const The_guilds_preferred_method_of_execution_is = ["Ingested poison or allergic reaction", "Exposure to deadly (but not highly contagious) disease", "Contact poison applied to a weapon", "Arrow/bolt from range", "Knife in the chest or back", "Multiple stab wounds", "Slitting throats", "Gutting or eviscerating", "Flaying", "Beheading", "Strangulation", "Hanging", "Burying alive", "Drowning", "Boiling alive", "Throwing off a roof", "Acid (pouring or submersion)", "Fiery explosion", "Burning alive", "Feeding to animals"];
+  const Guildmembers_typically_arm_themselves_with = ["Poisoned daggers and shortswords", "Throwing knives", "Over-sized daggers", "Serrated daggers", "Daggers and crossbows", "Axes and knives", "Bows and arrows", "Shortswords and crossbows", "Sickles and scythes", "Garrotes and daggers", "Exotic blades and blowguns", "Bolas and poisoned projectiles"];
+  const The_guilds_headquarters_is_hidden_in_or_near = ["The residence of the leader or a senior guildmember", "An artisan's shop or guildhall", "A merchant's office", "A tavern", "A brothel", "A warehouse or shipyard", "A temple complex", "The city's sewers", "The town hall", "An abandoned guildhall or warehouse", "An armory or barracks", "The residence of a wealthy individual or prominent citizen"];
+  const Guildmembers_typically_plan_their_attacks_for = ["At midnight", "At sunrise", "After midnight", "High noon", "In the wee hours", "At sunset", "Before sunrise", "After dark"];
+  const Guildmembers_typically_strike_with = ["Hit-and-run tactics", "Ambush tactics", "Diversionary tactics", "A precisely planned attack strategy", "A well-planned escape strategy", "The element of surprise", "Announcing their presence", "No thought of escape"];
+  const Guildmembers_typically_know = ["Very few other guildmembers", "Several other guildmembers", "The details of the guild’s organization", "Nothing about the guild’s leadership", "The names of the guild’s leaders, though they’ve never any of them", "One of the guild’s leading members and no other guildmembers"];
+  const Guildmembers_typically_operate = ["Alone", "In pairs", "In small groups", "By infiltrating an organization", "By impersonating a specific individual", "In plain sight"];
+  const The_guilds_leader_is = ["A dangerous megalomaniac", "A charismatic demagogue", "A mysterious foreigner", "A talented thief", "A well-known public figure", "A ruthless killer", "A femme fatale", "A charming rogue", "A dashing swashbuckler", "A brutish thug", "A religious fanatic", "A veteran soldier"];
+  const The_guilds_goals_include = ["Expanding the client base", "Corrupting and influencing the politics of the city or region", "Eliminating a rival assassins’ guild in the same city or region", "Eliminating a rival assassins’ guild in a foreign city or region", "Intimidating the masses", "Instigating rebellion among the masses"];
+  const The_guild_refuses_to_take_contracts_to_kill = ["Women", "Young children", "Nobles and prominent citizens", "Priests and monks", "Peasants and poor folk", "Foreigners and travelers", "Members of the client’s family", "Fellow criminals"];
+  const The_guild_is_feared_or_respected_by = ["Fishermen and sailors", "Beggars and orphans", "Merchants and moneychangers", "Nobles and rulers", "Politicians and magistrates", "Guards and sheriffs", "Soldiers and warriors", "Thieves and criminals", "Servants and slaves", "Priests and sages", "Women and children", "Other assassins"];
+  const arrayOfArraysEnum = {The_guilds_symbol_is, The_guilds_preferred_method_of_execution_is, Guildmembers_typically_arm_themselves_with, The_guilds_headquarters_is_hidden_in_or_near, Guildmembers_typically_plan_their_attacks_for, Guildmembers_typically_strike_with, Guildmembers_typically_know, Guildmembers_typically_operate, The_guilds_leader_is, The_guilds_goals_include, The_guild_refuses_to_take_contracts_to_kill, The_guild_is_feared_or_respected_by};
+  const arrayOfArrays = [The_guilds_symbol_is, The_guilds_preferred_method_of_execution_is, Guildmembers_typically_arm_themselves_with, The_guilds_headquarters_is_hidden_in_or_near, Guildmembers_typically_plan_their_attacks_for, Guildmembers_typically_strike_with, Guildmembers_typically_know, Guildmembers_typically_operate, The_guilds_leader_is, The_guilds_goals_include, The_guild_refuses_to_take_contracts_to_kill, The_guild_is_feared_or_respected_by];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_AssassinGuildIndividual = function(name){
+  const The_assassin_is = ["A veteran hitman", "A desperate footpad", "A reckless fortune seeker", "A well-known slayer", "A brash, young fool", "A student of the craft", "A charismatic butcher", "A mysterious foreigner", "A femme fatale", "A charming rogue", "A dashing swashbuckler", "A brutish thug"];
+  const The_assassin_has = ["A scar on the forearm", "A scar on the face", "A high-pitched laugh", "A long, hooked nose", "A dangerous look in the eye", "A cheerful smile", "A cold stare", "An agile step", "A low-cut shirt", "A bent, broken nose", "A cute little button nose", "A scar below the left eye", "Pockmarked cheeks", "High cheek bones", "A pointy chin", "A thug's tattoo INLINE", "A sailor's tattoo INLINE", "An open shirt and a very hairy chest", "A five o'clock shadow", "A neatly trimmed mustache"];
+  const A_thugs_tattoo = ["crossed bones", "dagger", "dragon", "eagle", "skull", "snake", "spider web", "thorns"]; 
+  const A_sailors_tattoo = ["anchor", "fish", "mermaid", "octopus", "shark", "whale"]; 
+  const The_assassin_wears = ["A flashy earring", "Shiny leather boots", "A gold signet ring", "A dagger in each boot", "A mask covering the face", "A wide-brimmed hat", "A cloak with a dark hood", "A black traveler's cloak", "A bandolier containing vials of poison", "A quiver full of arrows/bolts", "A dark red cape", "Boots with golden buckles", "A leather baldric", "A handkerchief tied over the head", "A small silver chain around the neck", "A long dark ponytail", "Luscious brown curls", "A ruffled shirt", "A black leather coat", "A handkerchief in the breast pocket"];
+  const The_assassin_is_looking_for = ["Accomplices to help complete a job", "Revenge against a rival assassin", "An easy contract", "Extra muscle for a tough assignment", "Rumors that may lead to a new client", "Word from a missing guild contact", "Someone to frame up for a murder", "Revenge against a double-crossing client", "A big payday", "A rowdy evening of carousing"];
+  const The_assassin_wields = ["A blade with a gem embedded in the pommel", "A blade with soft leather tassels dangling from the pommel", "A blade with a carved hilt INLINE", "A blade with a gently curved hilt", "A blade with beasts engraved in the guard INLINE", "A blade made of blackened steel", "A highly polished blade", "A blade with strange runes carved into it", "A blade with a serrated edge", "A curved, exotic blade"];
+  const A_blade_with_a_carved_hilt = ["ivory", "jade", "soapstone", "ebony", "mahogany", "oak"]; 
+  const A_blade_with_beasts_engraved_in_the_guard = ["dragons", "lions", "scorpions", "snakes", "spiders", "wolves"]; 
+  const The_assassin_also_carries = ["Several throwing knives", "An array of poisons in stoppered vials", "Several doses of a deadly poison", "A blowgun with poisoned darts", "An over-sized crossbow", "Arrows/bolts tipped with black steel", "Arrows/bolts with bronzed tips", "Arrows/bolts fletched with crow feathers", "Arrows/bolts fletched with peacock feathers", "Arrows/bolts coated in poison", "Some hemp rope and a silk handkerchief", "A pocketbook of notes and maps", "Climbing gear—pitons, hammer, and rope", "A mask", "The token of a love", "Letters for blackmail", "A lucky charm INLINE", "A flask filled with spirits", "A wineskin", "A little jar of mustache wax"];
+  const A_lucky_charm = ["rabbit's foot", "rabbit's foot", "lucky coin", "lucky coin", "horseshoe", "four-leafed clover"]; 
+  const The_assassin_prefers_to_operate = ["Alone", "Alone, but with a contact’s knowledge.", "With a partner to provide extra muscle", "With a partner to serve as a look-out", "With a partner to create a diversion", "Wearing a mask"];
+  const Recently_the_assassin_is_rumored_to_have_notched_a_kill_in_or_near_a_or_an = ["Inn", "Residential district", "Brothel", "Workshop or guildhall", "Cemetery", "Merchant's office", "Town hall", "Warehouse or shipyard", "Palace", "A temple complex", "Bridge", "Abandoned warehouse", "Pub", "Noble’s residence", "Tavern", "Library or university", "Docks", "Gatehouse or barracks", "Bridge", "Market square"];
+  const The_assassin_is_rumored_to_have_killed_a_or_an = ["Merchant", "Lord or lady", "Politician", "King or queen", "Crime boss", "Prince or princess", "Warlord", "Priest or priestess", "Sea captain", "Heretic or prophet"];
+  const arrayOfArraysEnum = {The_assassin_is, The_assassin_has, The_assassin_wears, The_assassin_is_looking_for, The_assassin_wields, The_assassin_also_carries, The_assassin_prefers_to_operate, Recently_the_assassin_is_rumored_to_have_notched_a_kill_in_or_near_a_or_an, The_assassin_is_rumored_to_have_killed_a_or_an};
+  const arrayOfArrays = [The_assassin_is, The_assassin_has, The_assassin_wears, The_assassin_is_looking_for, The_assassin_wields, The_assassin_also_carries, The_assassin_prefers_to_operate, Recently_the_assassin_is_rumored_to_have_notched_a_kill_in_or_near_a_or_an, The_assassin_is_rumored_to_have_killed_a_or_an];
+  const arrayOfInlinesEnum = {A_thugs_tattoo, A_sailors_tattoo, A_blade_with_a_carved_hilt, A_blade_with_beasts_engraved_in_the_guard, A_lucky_charm};
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_AssassinGuildIndividualPoison = function(name){
+  const The_poison_will_cause_or_induce = ["Wounds to bleed more profusely", "A splitting headache", "Aches all over the body", "Infection in and near open wounds", "Fever and chills", "Airway constriction or shortness of breath", "Excess mucus production, making breathing difficult", "Blurry vision or blindness", "A painful rash", "Itchy hives", "Loss of coordination and/or impaired walking", "Weakness in limbs and/or exhaustion", "Nausea and/or indigestion", "Vomiting and/or diarrhea", "Drowsiness and/or loss of consciousness", "Memory loss", "Inability to focus and/or to think clearly", "Nightmares and/or hallucinations", "Paranoia and/or insomnia", "Impotence, infertility, or miscarriage"];
+  const The_poison$$$s_consistency_is = ["A thick paste", "A thin paste", "A flaky powder", "A fluffy powder", "Made of fine crystals", "Made of coarse crystals", "A pungent potion", "A fragrant potion", "An odorless potion", "A foul-smelling potion", "An oily liquid", "A thick, gloopy liquid"];
+  const The_poison$$$s_color_is = ["Pale green", "Dark green", "Blue green", "Olive green", "Yellow", "Red", "White", "Grey", "Brown", "Black", "Blue", "Violet"];
+  const The_main_ingredient_is_harvested_from = ["A flower", "A spider", "A fruit", "A snake", "A mold", "A centipede or scorpion", "A leaf", "A frog or lizard", "A grass", "A jellyfish or coral", "Mushrooms", "A medusa or naga", "A root", "An otyugh or ooze", "A seed", "A drider or ettercap", "A tree bark", "A basilisk or cockatrice", "A mineral", "A demon or devil"];
+  const The_poison_is_prepared_by = ["Desiccating", "Boiling slowly", "Fermenting", "Boiling rapidly", "Roasting", "Brining", "Smoking", "Burning"];
+  const The_poison_is_most_effective_when = ["Ingested with food", "Ingested with alcohol", "Inhaled deeply", "Spread over a large area of the skin", "Applied to a weapon that pierces the flesh", "Applied to a weapon that slashes the flesh"];
+  const The_antidote_to_the_poison_is = ["A simple herbal remedy", "A complex herbal potion or salve", "A widely available healing potion or balm", "An intricate alchemical concoction", "No known earthly substances", "Rare and powerful magic"];
+  const arrayOfArraysEnum = {The_poison_will_cause_or_induce, The_poison$$$s_consistency_is, The_poison$$$s_color_is, The_main_ingredient_is_harvested_from, The_poison_is_prepared_by, The_poison_is_most_effective_when, The_antidote_to_the_poison_is};
+  const arrayOfArrays = [The_poison_will_cause_or_induce, The_poison$$$s_consistency_is, The_poison$$$s_color_is, The_main_ingredient_is_harvested_from, The_poison_is_prepared_by, The_poison_is_most_effective_when, The_antidote_to_the_poison_is];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+
+generate_CastleInhabitant = function(name){
+  const During_war_you_come_upon = ["A squad of archers hustling up a stair", "A patrol of guards brandishing weapons", "A guard shouting instructions", "A knight hurrying to the stables", "A servant cowering in a hiding place", "A curious child peaking out a window", "A servant kneeling in prayer", "A noble hastily penning a letter", "A squire aiding a knight with his armor", "A healer checking over his potions"];
+  const During_peace_you_come_upon = ["The huntsman cleaning a recent kill", "The kennelmaster leading a leashed dog", "The horsemaster instructing a young rider", "The armorer scolding an apprentice", "A maid fussing over her lady’s dress", "The tutor or sage lost in a book", "The chaplain whispering with a maid", "A maid polishing an ornamental shield", "A servant carrying a tray of food", "Several archers practicing in the yard"];
+  const arrayOfArraysEnum = {During_war_you_come_upon, During_peace_you_come_upon};
+  const arrayOfArrays = [During_war_you_come_upon, During_peace_you_come_upon];
+  const rand = Math.floor(Math.rand()*10);
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantArcher = function(name){
+  const The_archer_is = ["An eager young marksman", "An trigger-happy hotshot", "A braggart and a fool", "A skilled hunter", "An wily, old veteran", "A local archery champion"];
+  const Goal_The_archer_is_looking_to = ["Help his allies slaughter the enemy", "Keep safe someone special in the castle", "Hear word of any percolating wars", "Show off his skill with the bow", "Swap tales of the hunt or of battle", "Eat, drink, and be merry"];
+  const The_archer_carries = ["A longbow with a fraying string", "A longbow crafted of superior wood", "Arrows fletched with exotic feathers", "A deck of playing cards", "A flask containing a strong drink", "A flute or harp"];
+  const arrayOfArraysEnum = {The_archer_is, Goal_The_archer_is_looking_to, The_archer_carries};
+  const arrayOfArrays = [The_archer_is, Goal_The_archer_is_looking_to, The_archer_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantChaplain = function(name){
+  const The_chaplain_is = ["A devoted acolyte", "A devoted acolyte", "An adept healer", "A wise source of counsel", "A wise source of counsel", "A drunken hypocrite"];
+  const The_chaplain_is_looking_for = ["News from the surrounding lands", "News from the surrounding lands", "Sinners and heretics to chastise", "The answer to an ancient mystery", "The bottom of a goblet", "The bottom of a goblet"];
+  const The_chaplain_carries = ["A ceremonial cudgel or staff", "A prominently displayed holy symbol", "A prominently displayed holy symbol", "A pocketbook of sacred texts", "A pocketbook of sacred texts", "A wineskin"];
+  const arrayOfArraysEnum = {The_chaplain_is, The_chaplain_is_looking_for, The_chaplain_carries};
+  const arrayOfArrays = [The_chaplain_is, The_chaplain_is_looking_for, The_chaplain_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantCook = function(name){
+  const The_cook_greets_you_with = ["A goblet of warm wine", "A goblet of warm wine", "A chunk of bread and a piece of cheese", "A chunk of bread and a piece of cheese", "A cup of onion soup", "A tankard of mead"];
+  const The_cook_is_looking_for = ["Someone to chop onions", "Some better cabbage", "A good joke or story", "A good joke or story", "The bottom of a bottle", "The bottom of a bottle"];
+  const arrayOfArraysEnum = {The_cook_greets_you_with, The_cook_is_looking_for};
+  const arrayOfArrays = [The_cook_greets_you_with, The_cook_is_looking_for];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantFletcher = function(name){
+  const he_bowyer_is = ["A patient craftsman", "A patient craftsman", "An old archer, blind in one eye", "An old archer, blind in one eye", "A foreigner who puts unusual touches on the bows and feathers he makes", "Skilled at mending bows and arrows, but not so good at making them from raw materials"];
+  const The_bowyer_is_looking_for = ["Someone who can fletch arrows", "Stray arrowheads", "Stray arrowheads", "Intact arrow shafts", "Intact arrow shafts", "A mug of strong ale"];
+  const The_bowyer_carries = ["A whittling knife", "A quiver of arrows to be mended", "A quiver of arrows to be mended", "A quiver of newly made arrows", "A quiver of newly made arrows", "A bundle of fresh wood cuttings"];
+  const arrayOfArraysEnum = {he_bowyer_is, The_bowyer_is_looking_for, The_bowyer_carries};
+  const arrayOfArrays = [he_bowyer_is, The_bowyer_is_looking_for, The_bowyer_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantGuard = function(name){
+  const The_guard_serves_his_liege_for = ["The steady pay", "The chance to bully others", "Love of his liege’s family", "God and country", "The chance to demonstrate his valor", "The possibility of being raised to a knight"];
+  const On_the_guards_face_is = ["An eager grin", "An unsightly scar", "A blank stare", "A haughty sneer", "A sour look", "A bushy mustache"];
+  const The_guard_carries = ["A highly polished blade", "A letter from a fallen comrade", "A trophy from a fallen enemy", "A ribbon from a sweet maiden", "A battered old shield", "A pair of dice and a few coins"];
+  const arrayOfArraysEnum = {The_guard_serves_his_liege_for, On_the_guards_face_is, The_guard_carries};
+  const arrayOfArrays = [The_guard_serves_his_liege_for, On_the_guards_face_is, The_guard_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantGuardCaptain = function(name){
+  const The_captain_is = ["A lesser member of a noble house", "A brutish thug", "A dashing swashbuckler", "A celebrated war hero", "An anointed knight", "A career soldier"];
+  const The_captain_is_concerned_about = ["The resolve of the new recruits", "The castle’s food stores", "Sheltering too many commonfolk in a siege", "Running out of ale during a siege", "Bolstering the guard with new recruits", "A flaw in the castle’s design"];
+  const The_captain_is_looking_for = ["Information regarding enemy movements", "Reinforcements or new recruits", "News of his or his wife’s hometown", "Drinking companions and storytellers", "Help passing a message to a favorite lady", "Help saving his son or daughter from ruin"];
+  const The_captain_carries = ["A superbly crafted sword", "A trusted blade and a map", "A lucky charm (rabbit’s foot, old coin)", "The token of a faraway love", "A pipe and pouch of tobacco", "A little jar of mustache wax"];
+  const arrayOfArraysEnum = {The_captain_is, The_captain_is_concerned_about, The_captain_is_looking_for, The_captain_carries};
+  const arrayOfArrays = [The_captain_is, The_captain_is_concerned_about, The_captain_is_looking_for, The_captain_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantHorsemaster = function(name){
+  const The_horsemaster_is = ["A knight lamed in combat years ago", "A knight lamed in combat years ago", "The son of a servant to the liege’s family", "A genius for breeding horses", "A foreigner who grew up in the saddle", "A foreigner who grew up in the saddle"];
+  const The_horsemaster_has = ["A sackful of oats strapped to his belt", "A sackful of oats strapped to his belt", "A calm demeanor", "A calm demeanor", "A soft-spoken manner", "A pointed beard"];
+  const The_horsemaster_wants_to = ["Keep a swift horse at-the-ready to carry his liege’s urgent messages", "Keep a swift horse at-the-ready to carry his liege’s urgent messages", "Tell a tale of a grueling ride", "Tell a tale of a grueling ride", "Bring honor to his family name", "Boast about a prized young mare"];
+  const arrayOfArraysEnum = {The_horsemaster_is, The_horsemaster_has, The_horsemaster_wants_to};
+  const arrayOfArrays = [The_horsemaster_is, The_horsemaster_has, The_horsemaster_wants_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantHuntsman = function(name){
+  const The_huntsman_is = ["A member of the liege’s family", "A bastard son of a noble house", "A gifted tracker", "A former poacher", "A sadistic killer", "A kindly sportsman"];
+  const The_huntsman_is_worried_about = ["Reports of strange creatures in the region", "The reckless behavior of a fellow hunter", "How best to protect commonfolk’s livestock", "Bringing enough wine on the next hunt", "Pests damaging nearby crops or forests", "A disease ravaging the wild game"];
+  const The_huntsman_is_looking_to = ["Track an unusual beast", "Find the lair of a rare beast", "Find a place where game is plentiful", "Swap tales and rumors", "Play cards and gamble", "Win a drinking contest"];
+  const The_huntsman_carries = ["A hunting trap", "A fine longbow", "A large knife", "A heavy crossbow", "A sturdy hatchet.", "A trophy from a kill"];
+  const arrayOfArraysEnum = {The_huntsman_is, The_huntsman_is_worried_about, The_huntsman_is_looking_to, The_huntsman_carries};
+  const arrayOfArrays = [The_huntsman_is, The_huntsman_is_worried_about, The_huntsman_is_looking_to, The_huntsman_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantJester = function(name){
+  const The_fool_is = ["Dressed in motley", "A dwarf", "A faux knight", "Morbidly obese", "A faux wizard", "Wearing a mask"];
+  const The_fool_gets_laughs_from = ["Falling stunts", "Gorging himself with food or drink", "Singing silly songs", "Being hit over the head", "Lewd gestures", "Juggling sharp objects", "Swallowing flames", "Witty jokes and observations"];
+  const The_fool_desires_only_to = ["Bring smiles to others’ faces", "Get as far from this castle as he can", "Exact vengeance against a cruel noble", "Kiss a pretty maiden", "Have a drink and be merry", "Get drunk and feel numb"];
+  const arrayOfArraysEnum = {The_fool_is, The_fool_gets_laughs_from, The_fool_desires_only_to};
+  const arrayOfArrays = [The_fool_is, The_fool_gets_laughs_from, The_fool_desires_only_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantKennelMaster = function(name){
+  const The_kennelmaster_is = ["An eccentric dog-trainer", "A skilled hunter", "A short-tempered, portly fellow", "A short-tempered, portly fellow", "A tall, gregarious fellow", "A tall, gregarious fellow"];
+  const The_kennelmaster_is_looking_to = ["Encourage a hunting expedition", "Improve the breeding stock of the hounds", "Improve the breeding stock of the hounds", "Show off a clever hound", "Show off a clever hound", "Avoid questions regarding the hounds’ obedience"];
+  const The_kennelmaster_carries = ["A dog whistle", "A rope of some kind of jerky", "A rope of some kind of jerky", "A stick or club", "A rope leash", "A rope leash"];
+  const arrayOfArraysEnum = {The_kennelmaster_is, The_kennelmaster_is_looking_to, The_kennelmaster_carries};
+  const arrayOfArrays = [The_kennelmaster_is, The_kennelmaster_is_looking_to, The_kennelmaster_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantKnight = function(name){
+  const The_knight_is = ["A beautiful youth", "A brutish thug", "A celebrated war hero", "A popular tavern patron", "A favorite among the ladies", "Ruggedly handsome"];
+  const The_knight_has_sworn_to = ["Protect his liege from harm", "Defend his liege’s lands", "Avenge his liege’s personal grievances", "Protect his liege’s loved ones", "Advance his liege’s ideals or faith", "Ride to war in his liege’s name"];
+  const The_knight_carries = ["A finely crafted longsword", "A huge greatsword", "A well-used battleaxe", "A heavy warhammer", "A letter from his liege", "A favor from a faraway maiden"];
+  const arrayOfArraysEnum = {The_knight_is, The_knight_has_sworn_to, The_knight_carries};
+  const arrayOfArrays = [The_knight_is, The_knight_has_sworn_to, The_knight_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantLady = function(name){
+  const The_lady_is = ["A wise old woman", "A passionate young woman", "A homely young lady", "An acerbic wit", "A guest, a member of a powerful house", "A guest, a member of a lesser house"];
+  const The_lady_seeks_someone_to = ["Help gain revenge against a bitter rival", "Bring to light a scandal involving an enemy", "Secure a beneficial marriage", "Talk some sense into her husband or father", "Deliver a secret message", "Share some wine and gossip"];
+  const The_lady_carries = ["A vial of perfume", "A family heirloom", "A hidden dagger", "Valuable jewels", "A letter from a love letter. powerful ally", "A compromisin"];
+  const arrayOfArraysEnum = {The_lady_is, The_lady_seeks_someone_to, The_lady_carries};
+  const arrayOfArrays = [The_lady_is, The_lady_seeks_someone_to, The_lady_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantLord = function(name){
+  const The_lord_is = ["A patient old man", "A wide-eyed young man", "A hot-tempered tyrant", "A patient and benevolent ruler", "A guest, a member of a powerful house", "A guest, a member of a lesser house"];
+  const The_lord_seeks_someone_to = ["Dispose of an enemy", "Negotiate a trade contract", "Prepare the castle’s defenders for war", "Sabotage a rival", "Arrange a beneficial marriage", "Have a good time with"];
+  const The_lord_carries = ["Several deeds and titles", "A family heirloom", "Several inventories and invoices", "An extremely valuable sword", "A compromising love letter", "A letter from a powerful lord or lady"];
+  const arrayOfArraysEnum = {The_lord_is, The_lord_seeks_someone_to, The_lord_carries};
+  const arrayOfArrays = [The_lord_is, The_lord_seeks_someone_to, The_lord_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantSage = function(name){
+  const The_tutor_is = ["A scholar trained at a university", "A wizard trained at an academy", "A wizard who had apprenticed to another", "A self-taught scholar of noble birth", "A monk of an order famed for wisdom", "A priest dedicated to spreading knowledge"];
+  const Pupils_view_the_tutor_as = ["A second father/mother", "A trusted friend or mento", "A trusted friend or mento", "A weakling to be antagonized and bullied", "A weakling to be antagonized and bullied", "A tyrant to be feared"];
+  const The_tutor_is_well_versed_in = ["Military history", "Alchemy", "Music", "Ancient cultures", "Poetry and songs", "Astronomy", "Political history", "Herb lore", "Theater and dance", "Mathematics", "Theology", "Mineralogy"];
+  const arrayOfArraysEnum = {The_tutor_is, Pupils_view_the_tutor_as, The_tutor_is_well_versed_in};
+  const arrayOfArrays = [The_tutor_is, Pupils_view_the_tutor_as, The_tutor_is_well_versed_in];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantServant = function(name){
+  const The_servant_is = ["Her ladyship’s/her lordship’s favorite", "A long-time servant of the household", "New to the household and always in trouble", "New to the household and eager to please", "A foreigner, new to this land and house", "A foreigner, who can never return home"];
+  const The_servant_has = ["A pretty smile, but crooked teeth", "Beautiful but sad eyes", "A wide frame", "A bony figure", "Curves that could get her into trouble", "A wicked smile, and a sharp wit"];
+  const The_servant_wants_to = ["Avoid being alone with a particular noble", "Discipline one of the children in the castle", "Earn the affection of her mistress", "Bend your ear for an old folk tale", "Share a bit of juicy gossip she overheard", "Share a drink and a dance"];
+  const arrayOfArraysEnum = {The_servant_is, The_servant_has, The_servant_wants_to};
+  const arrayOfArrays = [The_servant_is, The_servant_has, The_servant_wants_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantSmith = function(name){
+  const The_smith_is = ["A meticulous armorsmith", "A blacksmith who makes decent swords", "A farrier who can mend swords", "A highly-skilled weaponsmith", "A sensitive artisan", "An expert on horses"];
+  const The_smith_is_looking_for = ["Someone who can shoe horses", "Steel of the highest quality", "Dull blades to sharpen", "Someone who appreciates masterful work", "A little extra coin to help pay the bills", "A mug of strong ale"];
+  const The_smith_carries = ["A filthy rag", "A small hammer", "A few coins", "A large hammer", "A pressed flour", "A lucky charm"];
+  const arrayOfArraysEnum = {The_smith_is, The_smith_is_looking_for, The_smith_carries};
+  const arrayOfArrays = [The_smith_is, The_smith_is_looking_for, The_smith_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantSquire = function(name){
+  const The_retainer_is = ["A squire from a lesser noble house", "A frightened link boy", "A long-time valet or squire", "A reformed criminal-turned valet", "A prisoner of war", "A mysterious foreigner"];
+  const The_retainer_has = ["An easy swagger", "A gullible nature", "A black eye", "Wild, shaggy hair", "A thin mustache", "A terrible stutter"];
+  const The_retainer_wants_to = ["Earn a little silver", "Train with weapons to become a hero", "Earn the affection of his master", "Bring honor to his family name", "Avoid entangling himself in a scandal", "Have a drink and a rest"];
+  const arrayOfArraysEnum = {The_retainer_is, The_retainer_has, The_retainer_wants_to};
+  const arrayOfArrays = [The_retainer_is, The_retainer_has, The_retainer_wants_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantStableHand = function(name){
+  const The_stable_hand_is = ["A shady-looking character", "A shady-looking character", "The son of another servant in the castle", "A prisoner-of-war turned servant", "A simple-minded stable boy", "A simple-minded stable boy"];
+  const The_stable_hand_has = ["An awkward gait", "Incredibly large hands", "Quite an odor", "Quite an odor", "A patchy beard", "A patchy beard"];
+  const The_stable_hand_wants_to = ["Earn a little silver", "Earn a little silver", "Avoid being kicked by a horse", "Rise to the position of horsemaster", "Pet the pretty horses", "Pet the pretty horses"];
+  const arrayOfArraysEnum = {The_stable_hand_is, The_stable_hand_has, The_stable_hand_wants_to};
+  const arrayOfArrays = [The_stable_hand_is, The_stable_hand_has, The_stable_hand_wants_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_CastleInhabitantSteward = function(name){
+  const The_steward_is = ["A lesser member of the liege’s house", "A lesser member of a powerful house", "A member of a lesser house", "A commoner by birth"];
+  const The_steward_seeks_someone_to = ["Obtain hard-to-get provisions", "Obtain hard-to-get provisions", "Deliver some letters", "Help win over a sweetheart", "Share a drink and a laugh", "Share a drink and a laugh"];
+  const The_steward_is_concerned_about = ["Ale and grain", "Gold and silver", "Gold and silver", "Meat and cheese", "Castle repairs", "Ale and wine stores"];
+  const arrayOfArraysEnum = {The_steward_is, The_steward_seeks_someone_to, The_steward_is_concerned_about};
+  const arrayOfArrays = [The_steward_is, The_steward_seeks_someone_to, The_steward_is_concerned_about];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+
+
+godName = function(){
+	const silben = ["est", "fa", "la", "ei", "not", "si", "ent", "ven", "ev", "ac", "ca", "fol", "ful", "na", "tain", "ning", "col", "par", "dis", "ern", "ny", "cit", "po", "cal", "mu", "moth", "pic", "im", "coun", "mon", "pe", "lar", "por", "fi", "bers", "sec", "ap", "stud", "ad", "tween", "gan", "bod", "tence", "ward", "hap", "nev", "ure", "mem", "ters", "cov", "ger", "nit"];
+	let name = "";
+	let length = Math.floor(Math.random()*3)+2;
+	for(let i=0; i<length; i++){
+		name += silben[Math.floor(Math.random()*silben.length + 1)];
+	}
+	return name.charAt(0).toUpperCase() + name.substring(1);
+}
+
+generate_IndividualGod = function(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple){
+	output += (rand >= 1 ? epitaphs[0] : epitaphs[1]) + godName() + "<br>";
+  	for(let i=0; i<arrayOfArrays.length;i++){
+  		let roll = arrayOfArrays[i][Math.floor(Math.random()*arrayOfArrays[i].length)];
+  		output += Object.keys(arrayOfArraysEnum)[i].replaceAll("_"," ") + " " + roll + " " + "<br>";
+  	}
+  	if(multiple){
+  		i += 1;
+  		output += (rand < 1 ? epitaphs[0] : epitaphs[1]) + godName() + "<br>";
+  		for(let i=0; i<arrayOfArrays.length;i++){
+  			let roll = "";
+  			do{roll = arrayOfArrays[i][Math.floor(Math.random()*arrayOfArrays[i].length)];
+  			}while(output.includes(roll));
+  			output += Object.keys(arrayOfArraysEnum)[i].replaceAll("_"," ") + " " + roll + " " + "<br>";
+  		}
+  	}
+}
+lowestNumberNotTaken = function(array){
+	let current = 0;
+	for(let i=0;i<array.length(); i++){
+		if(array[i] < current){
+			
+		}else if(array[i] == current){
+			current += 1;
+		}else{
+			return current;
+		}
+	}
+	return 11;
+}
+generate_GodsPantheon = function(name){
+	let amountOfGods = Math.floor(Math.random()*12)+1;
+	let types = new Array(amountOfGods);
+	for(let i= 0; i<amountOfGods;i++){
+		types[i] = Math.floor(Math.random()*13)
+	}
+	types.sort();
+	for(let i= 0; i<amountOfGods;i++){
+		let multiple = false;
+		if(i+1 <amountOfGods && types[i] == types[i+1]){
+			multiple = true;
+			if(i+2 <amountOfGods && types[i] == types[i+2]){
+				/* more than two gods of same type, invalid */
+				types[i+2] = (types[i+2] == 11 ? lowestNumberNotTaken(types) : types[i]+1); 
+			}
+		}
+		const rand = Math.random()*2;
+		switch(types[i]){
+			case 5:{
+				const He_is_often_called = ["The Lord of Battle", "The Lord of Battle", "The Bringer of Blood", "The Unyielding Tyrant", "The Harbinger of Doom", "The Harbinger of Doom"];
+  				const He_holds_dominion_over = ["Soldiers and gladiators", "Violence and slaughter", "Violence and slaughter", "Tyranny and battle", "Tyranny and battle", "Strength and domination"];
+  				const His_followers_must = ["Ritualistically scar themselves", "Ritualistically scar themselves", "Fight with a military company or war clan at least once", "Train with weapons daily", "Pray on the eve of battle", "Pray on the eve of battle"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The Tyrant God: ", "The God of War: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 6:{ 
+				const He_is_often_called = ["The Maker of Mischief", "The Knife-Sharp Wit", "The Messenger of the Gods", "The Swift Strider", "The Lucky Traveler", "The Wandering Rogue"];
+  				const He_holds_dominion_over = ["Mischief and pranks", "Trickery and cruel jokes", "Rogues and thieves", "Rogues and thieves", "Travelers and wanderers", "Travelers and wanderers"];
+				const His_followers_must = ["Drink enormous amounts of wine at festivals", "Drink enormous amounts of wine at festivals", "Participate in pranks and subversive activities", "Participate in pranks and subversive activities", "Pray at the beginning and end of any journey", "Make a pilgrimage to a holy place at least once"];
+				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The Trickster God: ", "The Messenger of Gods: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 1:{
+				const He_is_often_called = ["The Father of the Heavens", "The Father of the Heavens", "The Master of the Skies", "The Keeper of the Sun's Flame", "The Lord of Light", "The Lord of Light"];
+  				const He_holds_dominion_over = ["The sun and light", "The sun and light", "The sun and stars", "The sun and stars", "Light and fire", "Fire and power"];
+  				const His_followers_must = ["Always keep a lamp burning", "Always keep a lamp burning", "Ritualistically burn or brand themselves", "Pray at sunrise and sunset", "Read his sacred texts in the daylight hours daily", "Read his sacred texts in the daylight hours daily"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The Sun God: ", "The God of the Sky: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 2:{
+				const He_is_often_called = ["The Lord of Thunder", "The Lord of Thunder", "The Storm-Bringer", "The Storm-Bringer", "The Master of the Seas", "The Taker of Ships"];
+  				const He_holds_dominion_over = ["The sea and storms", "The sea and storms", "Merchants and ships", "Merchants and ships", "Sailors and pirates", "Storms and strength"];
+  				const His_followers_must = ["Splash saltwater on themselves when praying daily", "Splash saltwater on themselves when praying daily", "Give their dead a burial at sea", "Give their dead a burial at sea", "Kneel outside to offer a short prayer whenever it rains", "Keep a journal of storms and strange meteorological phenomena"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The Storm God: ", "The God of Storms: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 4:{
+				const She_is_often_called = ["The Lady of the Moon", "The Moon-Witch", "The Moon-Witch", "The Mistress of the Night", "The Mistress of the Night", "The Maiden of Magic"];
+  				const She_holds_dominion_over = ["The moon and stars", "The moon and night", "The moon and night", "Magic and light", "Magic and light", "Witches and wizards"];
+ 				const Her_followers_must = ["Hold an all-night prayer vigil when the moon is full", "Read her sacred texts by moonlight once a month", "Read her sacred texts by moonlight once a month", "Engage in vigorous debates of mysticism and magic", "Keep a secret journal of magical secrets and lore", "Keep a secret journal of magical secrets and lore"];
+  				const arrayOfArraysEnum = {She_is_often_called, She_holds_dominion_over, Her_followers_must};
+  				const arrayOfArrays = [She_is_often_called, She_holds_dominion_over, Her_followers_must];
+  				const epitaphs = ["The Moon Goddess: ", "The Goddess of Magic: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 7:{
+	 			const She_is_often_called = ["The Bearer of Children", "The Fair Maiden", "The Fair Maiden", "The Mistress of Seduction", "The Mistress of Seduction", "The Giver of Love"];
+  				const She_holds_dominion_over = ["Marriage and children", "Love and music", "Love and music", "Love and beauty", "Love and beauty", "Seduction and manipulation"];
+  				const Her_followers_must = ["Participate in ritualistic sexual orgies", "Procreate to the fullest extent they can", "Procreate to the fullest extent they can", "Publicly display their affections for loved ones", "Publicly display their affections for loved ones", "Keep a secret journal of romantic exploits"];
+  				const arrayOfArraysEnum = {She_is_often_called, She_holds_dominion_over, Her_followers_must};
+  				const arrayOfArrays = [She_is_often_called, She_holds_dominion_over, Her_followers_must];
+  				const epitaphs = ["The Fertility Goddess: ", "The Goddess of Love: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 8:{
+			   const She_is_often_called = ["The Great Huntress", "The Lady of the Hunt", "The Lady of the Hunt", "The Maiden of the Woods", "The Maiden of the Woods", "The Keeper of the Ancient Grove"];
+  				const She_holds_dominion_over = ["Hunters and woodsmen", "Beasts and wilderness", "Beasts and wilderness", "Forests and trees", "Forests and trees", "Archers and woodland creatures"];
+  				const Her_followers_must = ["Pray beneath a tree every day", "Pray beneath a tree every day", "Read her sacred texts in a grove of trees once a week", "Participate in an annual hunt", "Participate in an annual hunt", "Prepare burnt offerings of beasts slain while hunting"];
+  				const arrayOfArraysEnum = {She_is_often_called, She_holds_dominion_over, Her_followers_must};
+ 				const arrayOfArrays = [She_is_often_called, She_holds_dominion_over, Her_followers_must];
+ 				const epitaphs = ["The Goddess of the Hunt: ", "The Woodlands Goddess: "];
+ 				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+ 				break;}
+			case 10:{ 
+			   const She_is_often_called = ["The Giver of Fruit", "The Giver of Fruit", "The Grower of Crops", "The Grower of Crops", "The Maiden of Spring and Summer", "The Mistress of Autumn and Winter"];
+  				const She_holds_dominion_over = ["Farmers and gardeners", "Harvests and crops", "Time and seasons", "Time and seasons", "Feasts and famines", "Feasts and famines"];
+  				const Her_followers_must = ["Prepare burnt offerings of fruits and vegetables", "Prepare burnt offerings of fruits and vegetables", "Ritualistically bury their dead in the earth", "Read her sacred texts daily", "Grow something in the ground or in a pot at home", "Grow something in the ground or in a pot at home"];
+  				const arrayOfArraysEnum = {She_is_often_called, She_holds_dominion_over, Her_followers_must};
+ 				const arrayOfArrays = [She_is_often_called, She_holds_dominion_over, Her_followers_must];
+ 				const epitaphs = ["The Harvest Goddess: ", "The Goddess of Seasons: "];
+ 				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+ 				break;}
+			case 0:{ 
+			  const She_is_often_called = ["The Mother of All Things", "The Mother of All Things", "The Keeper of Life and Death", "The Protector of Life", "The Protector of Life", "The Defender of her Children"];
+  				const She_holds_dominion_over = ["The earth and harvest", "The earth and harvest", "The earth and trees", "Family and childbirth", "Family and childbirth", "The hearth and home"];
+  				const Her_followers_must = ["Have a shrine dedicated to her at home", "Have a shrine dedicated to her at home", "Ritualistically bury their dead in the earth", "Ritualistically bury their dead in the earth", "Pray prostrate on the ground daily", "Always use salt to season their food"];
+  				const arrayOfArraysEnum = {She_is_often_called, She_holds_dominion_over, Her_followers_must};
+  				const arrayOfArrays = [She_is_often_called, She_holds_dominion_over, Her_followers_must];
+  				const epitaphs = ["The godly Mother: ", "The Earth Goddess: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 3:{
+			   const He_is_often_called = ["The Harbinger of Death", "The Harbinger of Death", "Death's Companion", "The Lord of Torment", "The Lord of Torment", "The Bringer of Pain"];
+  				const He_holds_dominion_over = ["Necromancers and assassins", "Death and disease", "Death and disease", "Pain and torture", "Pain and torture", "Death and cruelty"];
+  				const His_followers_must = ["Commit murder at least once in their lives", "Ritualistically eat their dead", "Participate in painful rituals of human sacrifice", "Participate in painful rituals of human sacrifice", "Pray in a cemetery, tomb, or place touched by death weekly", "Pray in a cemetery, tomb, or place touched by death weekly"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The Death God: ", "The God of Evil: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 9:{ 
+				const He_is_often_called = ["The Lord of Darkness", "The Lord of Darkness", "The Serpent in the Shadows", "The Finder of Secrets", "The Watchful Eye", "The Watchful Eye"];
+  				const He_holds_dominion_over = ["Darkness and poison", "Darkness and poison", "Shadows and spies", "Secrets and treachery", "Ancient lore and mysteries", "Ancient lore and mysteries"];
+  				const His_followers_must = ["Never speak of their true devotion to nonbelievers", "Never speak of their true devotion to nonbelievers", "Ritualistically cut out the tongues of those who betray secrets", "Ritualistically cut out the tongues of those who betray secrets", "Pray every night while in utter darkness", "Keep a journal of secrets in a hidden location"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must];
+  				const epitaphs = ["The God of Secrets: ", "The God of Darkness: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+			case 11:{ 
+			   const He_is_often_called = ["The Forger of Mountains", "The Forger of Mountains", "The Lord of Craft", "The Master of Wisdom", "The Master of Wisdom", "The Keeper of Knowledge"];
+  				const He_holds_dominion_over = ["Forges and fire", "Forges and fire", "Artisans and craftsmen", "Sages and scholars", "Knowledge and wisdom", "Knowledge and wisdom"];
+  				const His_followers_must = ["Build or craft something with their hands", "Build or craft something with their hands", "Ritualistically burn their dead", "Ritualistically burn their dead", "Engage in vigorous scholarly debates", "Read something new daily"];
+  				const arrayOfArraysEnum = {He_is_often_called, He_holds_dominion_over, His_followers_must};
+  				const arrayOfArrays = [He_is_often_called, He_holds_dominion_over, His_followers_must]; 
+  				const epitaphs = ["The God of Crafting: ", "The God of Knowledge: "];
+  				generate_IndividualGod(arrayOfArraysEnum, arrayOfArrays, epitaphs, rand, multiple);
+  				break;}
+		}
+	}
+	output = output.replaceAll("$$$", "'");
+  	const myHeading = document.getElementById("generated_content");
+  	myHeading.querySelector('.minimized').insertAdjacentHTML("afterend",'<div class="inGeneratedContent" data-minimized="false" data-category="'+
+  	name.innerHTML.trim() +'">\n<button class="forPinning" type="button" onclick="pin(this)">Pin</button>\n<button type="button" onclick="toggle_minimize(parentNode)">Minimize</button>\n<button class="forPinning" type="button" onclick="pinMinimize(this)">Pin & Minimize</button>\n<button type="button" onclick="parentNode.remove()">Delete</button>\n <p>'+output+'</p> \n </div>');
+  	output = "";
+}
+generate_Harlot = function(name){
+  const the_harlot_is = ["A veteran who may have been beautiful", "A passionate young woman", "A homely young lady", "A friendly and plump woman", "The bastard daughter of a noble house", "A young foreigner", "The boss’s favorite", "An exotic beauty", "New to the place and always in trouble", "New to the place and eager to please"];
+  const The_harlot_has = ["A pretty smile", "Beautiful eyes", "Lovely, long eyelashes", "Lush, curly locks", "Short-cropped hair", "A clean satin gown"];
+  const as_well_as = ["A gimpy leg", "Crooked teeth", "A scowl on her face", "An unsightly scar", "An unfortunately shaped nose", "A large mole on her face", "Crossed-eyes", "A mustache"];
+  const the_harlot$$$s_flaw_is = ["Barely noticeable", "Barely noticeable", "Well-concealed by make-up or practice", "Well-concealed by make-up or practice", "Something you can look past", "Intimidating"];
+  const The_harlot_is_very_skilled_at = ["Listening and offering emotional support", "Bringing a smile to her clients’ faces without even touching them", "Bringing a smile to her clients’ faces as soon as she touches them", "Embroidery and sewing", "Cooking and cleaning", "Drinking and swearing"];
+  const The_harlot_is_looking_to = ["Earn enough coin to get out of this place", "Earn enough coin to get out of this place", "Bring to light a scandal involving a rival", "Secure a marriage to get out of this place", "Secure a marriage to get out of this place", "Hear word of a child given away"];
+  const arrayOfArraysEnum = {the_harlot_is, The_harlot_has, as_well_as, the_harlot$$$s_flaw_is, The_harlot_is_very_skilled_at, The_harlot_is_looking_to};
+  const arrayOfArrays = [the_harlot_is, The_harlot_has, as_well_as, the_harlot$$$s_flaw_is, The_harlot_is_very_skilled_at, The_harlot_is_looking_to];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_MilitaryCampScout = function(name){
+  const The_scout_is = ["A daring ranger", "A skilled hunter", "A skilled hunter", "An expert tracker", "An expert tracker", "A brutal warrior"];
+  const The_scout_is_looking_to = ["Help the camp slaughter the enemy", "Keep the camp from marching into a trap", "Keep the camp from marching into a trap", "Hear word of enemy patrols and wild game", "Hear word of enemy patrols and wild game", "Eat, drink, and be merry"];
+  const The_scout_carries = ["A map with notes scrawled all over it", "A unique trinket or piece of jewelry", "A unique trinket or piece of jewelry", "A longbow and a quiver of arrows", "A longbow and a quiver of arrows", "A large knife and climbing gear"];
+  const arrayOfArraysEnum = {The_scout_is, The_scout_is_looking_to, The_scout_carries};
+  const arrayOfArrays = [The_scout_is, The_scout_is_looking_to, The_scout_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+  };
+generate_Pirates = function(name){
+
+  const The_pirates$$$_ship_is = ["A hulk", "A rickety raft", "A carrack", "A galley", "A caravel", "A longship", "A schooner", "A catamaran", "A dreadnought", "A cog"];
+  const Presently_the_ship_is = ["Laden with treasure", "Full of stolen goods", "Well-stocked with provisions", "In tip-top shape", "“On loan” to some other pirates", "In need of repair", "Barely staying afloat", "Resting beneath the waves"];
+  const The_ship$$$s_banner_has = ["A dagger", "A skull", "A ghost", "Crossed bones", "A crab", "Skull and bones", "An albatross", "A skeletal hand", "A pelican", "A skeletal fish", "A whale", "A flaming skull", "An octopus", "A clenched fist", "A dagger", "A bloody dagger", "A sea turtle", "A mermaid", "A big tuna", "Crossed swords"];
+  const The_ship$$$s_masthead_is = ["A fish or whale", "A goddess", "A dragon", "A mermaid", "A skeleton", "A young lady", "An octopus", "An eagle or wolf"];
+  const The_ship$$$s_mascot_is = ["A budgie (fond of saying \"Ye scalawags!\" or \"Aye, Captain!\")", "A cockatoo (fond of saying \"Pieces of eight!\" or \"It's shark week!\")", "A conure (fond of saying \"Dead men tell no tales!\" or \"Ahoy!\")", "A macaw (fond of saying \"Show me the booty!\" or \"Land, ho!\")", "A capuchin monkey (with or without an eyepatch)", "A macaque (with or without a vest)", "A spider monkey (with or without a bandanna)", "A tamarin (with or without mustaches)", "An old turtle", "A lazy sea-faring cat", "A pot-belly pig", "A high-energy herding dog"];
+  const The_ship$$$s_captain_is = ["A dangerous megalomaniac", "A charismatic demagogue", "A mysterious foreigner", "A talented thief", "A member of a prominent family", "A ruthless killer", "A femme fatale", "A charming rogue", "A dashing swashbuckler", "A brutish thug", "An old sailor", "A celebrated naval hero"];
+  const The_crew$$$s_attitude_toward_their_captain_is = ["Adoring and loyal", "Friendly and pleased", "Respectful and business-like", "Mercenary and eager", "Terrified and tight-lipped", "Disappointed and indifferent", "Restless and rebellious", "Angry and mutinous"];
+  const The_crews_favorite_drink_is = ["Wine", "Rum", "Brandy", "Grog", "Whisky", "Ale"];
+  const The_crew$$$s_goals_include = ["Discovery of a legendary hidden treasure", "Domination of the region's maritime trade", "Revenge against a naval hero", "Revenge against a rival pirate crew", "Rebellion against the dominant merchant traders", "A wealthy and peaceful retirement", "Violence to slake their bloodlust", "Drinking all the rum"];
+  const The_crew_is_known_for = ["Never leaving survivors", "Feeding captives to sharks", "Tattooing or branding captives", "Scalping captives", "Flaying captives", "Burning seaside villages", "Plundering the ships of a wealthy tyrant", "Using a lot of explosives", "Convening with ghosts", "Romantic escapades", "Singing bawdy songs", "Drinking too much rum"];
+  const The_crew$$$s_headquarters_is_hidden_in_or_near = ["A rugged seaside cliff", "A hidden lagoon", "A remote island", "A swampy river mouth", "A coastal cave", "A tavern", "A brothel", "A warehouse or shipyard", "An old lighthouse", "A poor fishing villag"];
+  const Crewmembers_typically_arm_themselves_with = ["Belaying pins (wooden clubs)", "Throwing knives", "Over-sized daggers", "Serrated daggers", "Cutlasses", "Clubs and daggers", "Brass knuckles", "Bare fists", "Nets and tridents", "Harpoons"];
+  const Crewmembers_often_sport_matching = ["Boots", "Puffy shirts", "Tattoos", "Breeches", "Hats", "Scarves", "Scars", "Vests", "Mustaches", "Bandannas"];
+  const The_crew_typically_fights_with = ["Swarm tactics", "Hit-and-run tactics", "Ambush tactics", "Choreographed maneuvers", "Unpredictable maneuvers", "Lots of smiles and jokes", "Lots of fancy footwork", "Lots of screaming and shouting", "Kicking and stomping", "Lots of head-butting"];
+  const arrayOfArraysEnum = {The_pirates$$$_ship_is, Presently_the_ship_is, The_ship$$$s_banner_has, The_ship$$$s_masthead_is, The_ship$$$s_mascot_is, The_ship$$$s_captain_is, The_crew$$$s_attitude_toward_their_captain_is, The_crews_favorite_drink_is, The_crew$$$s_goals_include, The_crew_is_known_for, The_crew$$$s_headquarters_is_hidden_in_or_near, Crewmembers_typically_arm_themselves_with, Crewmembers_often_sport_matching, The_crew_typically_fights_with};
+  const arrayOfArrays = [The_pirates$$$_ship_is, Presently_the_ship_is, The_ship$$$s_banner_has, The_ship$$$s_masthead_is, The_ship$$$s_mascot_is, The_ship$$$s_captain_is, The_crew$$$s_attitude_toward_their_captain_is, The_crews_favorite_drink_is, The_crew$$$s_goals_include, The_crew_is_known_for, The_crew$$$s_headquarters_is_hidden_in_or_near, Crewmembers_typically_arm_themselves_with, Crewmembers_often_sport_matching, The_crew_typically_fights_with];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_PrisonDungeon = function(name){
+  const The_dungeon_is_located = ["In a tower set apart from the main castle", "Beneath the keep", "In a flanking tower of the castle", "Beneath a flanking tower in the castle", "In a corner tower of the castle", "Beneath a corner tower of the castle"];
+  const The_dungeon_was_built = ["As part of the original castle", "As part of the original castle", "As a later addition", "For another purpose originally", "Long before most of the castle", "Long before most of the castle"];
+  const The_dungeon_is = ["A sprawling maze of twisting passages", "A sprawling maze of narrow passages", "Organized into small, neat rows of cells or pits", "Organized around a large central cell block or pit", "Only a few rooms", "An endless series of long corridors or ladders", "An endless series of small rooms and staircases", "A series of corridors with very low ceilings"];
+  const Prisoners_are_held_within = ["Individual cells, in complete isolation", "Individual cells, but they can see and hear other prisoners", "Individual cells, but they can hear other prisoners", "Cells that accommodate up to two prisoners", "Cells that accommodate up to two prisoners, each shackled to the wall", "Cells that accommodate up to four prisoners", "Cells that accommodate up to four prisoners, each shackled to the wall", "A large chamber with many other prisoners, each shackled to the wall", "Individual pits or wells, open at the top", "One or more huge pit with many other prisoners"];
+  const The_walls_and_tunnels_are = ["Well-maintained; the walls are solid", "Well-maintained; the walls are solid", "Aging, but sturdy; the walls have some cracks", "Aging, but sturdy; the walls have some cracks", "Decrepit; the walls are crumbling", "So dark it’s difficult to say"];
+  const Prisoners_are_treated = ["Humanely; they receive reasonable meals, some exercise, and healing when needed", "Like dogs; they receive poor quality meals and enough healing to keep them alive", "Like dogs; they receive poor quality meals and enough healing to keep them alive", "Like rats; they receive terrible meals and are plagued by sickness", "Like rats; they receive terrible meals and are plagued by sickness", "Like they don’t exist; occasionally they receive food"];
+  const The_dungeon_is_known_for = ["Many deaths during a terrible plague", "A mass escape in the past", "The escape of a famous criminal", "Being the final home of a famous criminal", "Being the final home of a legendary hero", "Being haunted by vengeful ghosts", "Its horrific torture pits", "Never suffering a successful escape", "Its quirky jailer", "The quality of its meals"];
+  const According_to_rumor_within_the_castles_dungeon_lies = ["A secret tunnel to the outside", "The bones of a long-lost hero", "The preserved head of an ancient villain", "A terrible beast to which prisoners are fed", "A missing lord or lady", "A famous jewel stolen by a notorious thief", "A unique and terrible torture device", "The bones of a deposed king or queen"];
+  const This_chamber_is = ["A dungeon cell", "Another dungeon cell", "A passageway connecting cell blocks", "A guardroom", "The barracks", "The jailer’s quarters", "A yard or large indoor space for exercise", "A small dining room", "An interrogation room", "A torture chamber"];
+  const You_notice = ["A wooden door reinforced with steel bands", "Steel bars where you expected a stone wall", "Empty manacles along the wall", "An empty sconce to hold a torch", "Distant torchlight", "The floor is uneven", "A crack in the stone floor", "A mouse skittering underfoot", "The stench of rotting flesh", "The scent of stale urine", "A putrid smell", "A dank and moldy odor", "An uncomfortable groaning", "A faint scratching sound", "An odd tapping sound", "The squeaking of rats", "The shouting of distant voices", "Howls of agony", "Horrific screams", "The clanking of chains"];
+  const You_come_upon = ["A snoozing guard or jailer", "A pair of guards on patrol", "A quartet of guards playing cards or dice on their break", "A pack of trained hunting dogs commanded by a high-ranking guard who has been alerted of the escape attempt", "An inquisitor on-site to interrogate another prisoner about an unrelated case", "An ear-splitting shriek from a maidservant", "A wide, well-lit yard that must be crossed with guards watching it from towers", "A high wall directly in the path of escape", "A barred window in the path of escape", "The rat-infested kitchens", "An imprisoned nobleman who offers to help if you help him escape", "An imprisoned thief who is bent on revenge"];
+  const Even_if_you_make_it_out_of_the_dungeon_youll_never_escape_because = ["The castle’s huntsman will ride you down", "The castle’s hunting hounds are peerless", "The castle’s ghosts will shriek in alarm", "The knights sworn to the castle’s liege will not rest until they return you to him or her", "The castle’s archers will fill you with arrows", "You’ve been branded a prisoner of this place; no one will risk helping you"];
+  const arrayOfArraysEnum = {The_dungeon_is_located, The_dungeon_was_built, The_dungeon_is, Prisoners_are_held_within, The_walls_and_tunnels_are, Prisoners_are_treated, The_dungeon_is_known_for, According_to_rumor_within_the_castles_dungeon_lies, This_chamber_is, You_notice, You_come_upon, Even_if_you_make_it_out_of_the_dungeon_youll_never_escape_because};
+  const arrayOfArrays = [The_dungeon_is_located, The_dungeon_was_built, The_dungeon_is, Prisoners_are_held_within, The_walls_and_tunnels_are, Prisoners_are_treated, The_dungeon_is_known_for, According_to_rumor_within_the_castles_dungeon_lies, This_chamber_is, You_notice, You_come_upon, Even_if_you_make_it_out_of_the_dungeon_youll_never_escape_because];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,[],name);
+};
+generate_PrisonTorturer = function(name){
+  const The_torturer_is = ["The bastard son of a noble house", "A priest with a puritanical agenda", "A horrible sadist", "A wicked little man", "A soldier and a survivor", "A soft-spoken artistic type"];
+  const The_torturer_is_looking_to = ["Impress his liege with efficient confessions", "Make himself feel powerful", "Make himself feel powerful", "Break a particularly willful prisoner", "Break a particularly willful prisoner", "Frighten someone with grisly tales"];
+  const The_torturer_carries = ["A large knife and a scourge", "A leatherbound case of hooks and prongs", "Several strange potions and poisons", "A trophy taken from a tortured prisoner", "A pocket-sized prayer book", "A flask of spirits"];
+  const arrayOfArraysEnum = {The_torturer_is, The_torturer_is_looking_to, The_torturer_carries};
+  const arrayOfArrays = [The_torturer_is, The_torturer_is_looking_to, The_torturer_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+
+generate_TownAlchemist = function(name){
+
+  const The_alchemist_is = ["An apothecary", "A hedge wizard", "An herbalist", "A poisonmaker", "A potioneer", "A pyromancer"];
+  const The_alchemist_is_looking_for = ["Delivery help", "New recipes", "Purchasers", "Purchasers", "Rare ingredients", "Rare ingredients"];
+  const The_alchemist_carries = ["Several vials of acid", "Several vials of acid", "Several curatives", "An unusual potion", "An unusual potion", "A pyrophoric substance"];
+  const arrayOfArraysEnum = {The_alchemist_is, The_alchemist_is_looking_for, The_alchemist_carries};
+  const arrayOfArrays = [The_alchemist_is, The_alchemist_is_looking_for, The_alchemist_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownBarkeep = function(name){
+  const The_server_greets_you_with = ["A mug of ale", "A goblet of wine", "A glass of water", "An offer to move to a better table", "A look of exasperation", "A warm handshake", "A pat on the back", "A pretty smile"];
+  const The_server_is_looking_for = ["An excuse to kick you out", "Someone more important to talk to", "Someone to do some pest removal", "A big tip", "A good joke or story", "The bottom of a bottle"];
+  const The_server_carries = ["A filthy rag", "A pristine silk handkerchief", "A piece of conspicuous jewelry", "A piece of conspicuous jewelry", "An unusual belt purse", "An unusual belt purse"];
+  const arrayOfArraysEnum = {The_server_greets_you_with, The_server_is_looking_for, The_server_carries};
+  const arrayOfArrays = [The_server_greets_you_with, The_server_is_looking_for, The_server_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownCriminal = function(name){
+  const The_criminal_is = ["An assassin", "A con artist", "A gambler", "A poacher", "A smuggler", "A thief"];
+  const The_criminal_is_looking_for = ["Accomplices for a specific task", "Revenge against a rival criminal", "An easy mark", "Extra muscle for some work", "Rumors that may lead to a big score", "A rowdy evening of carousing"];
+  const The_criminal_carries = ["A crossbow with poisoned darts", "Several daggers", "A short sword", "A lucky charm", "The token of a love", "Letters for blackmail"];
+  const arrayOfArraysEnum = {The_criminal_is, The_criminal_is_looking_for, The_criminal_carries};
+  const arrayOfArrays = [The_criminal_is, The_criminal_is_looking_for, The_criminal_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownLawOfficial = function(name){
+  const The_law_official_is = ["A constable", "A sheriff", "A sheriff", "A guard captain", "A guard captain", "A magistrate"];
+  const The_law_official_seeks_someone_to = ["Capture a fugitive", "Catch a thief", "Guard a specific location or person", "Investigate a disappearance", "Solve a murder mystery", "Have an ale with"];
+  const The_law_official_carries = ["An arrest warrant for an outlaw", "A proclamation for a reward", "A knife or sword of the office", "A knife or sword of the office", "A pocketbook of local laws", "A pocketbook of local laws"];
+  const arrayOfArraysEnum = {The_law_official_is, The_law_official_seeks_someone_to, The_law_official_carries};
+  const arrayOfArrays = [The_law_official_is, The_law_official_seeks_someone_to, The_law_official_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownSeer = function(name){
+  const The_seer_is = ["An astrologer", "A fortune teller", "A lorekeeper", "A mysti", "A prophet", "A psychic"];
+  const The_seer_is_looking_for = ["The answer to a riddle or prophecy", "The answer to a riddle or prophecy", "New clients for a reading", "New clients for a reading", "News regarding a missing person", "Some juicy gossip"];
+  const The_seer_carries = ["A crystal ball", "A crystal ball", "A dowsing rod", "A large, sharp-pointed knife", "Several star charts", "Several star charts"];
+  const arrayOfArraysEnum = {The_seer_is, The_seer_is_looking_for, The_seer_carries};
+  const arrayOfArrays = [The_seer_is, The_seer_is_looking_for, The_seer_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownSmith = function(name){
+  const The_smith_is = ["An armorer", "A blacksmith", "A blacksmith", "A farrier", "A farrier", "A weaponsmith"];
+  const The_smith_is_looking_for = ["A new apprentice", "A new apprentice", "A journeyman craftsman", "Rare metals", "Rare metals", "A mug of strong ale"];
+  const The_smith_carries = ["A hammer", "A hammer", "A metal trinket made by the smith", "A metal trinket made by the smith", "A contract commissioning a sword", "Little more than a few coins"];
+  const arrayOfArraysEnum = {The_smith_is, The_smith_is_looking_for, The_smith_carries};
+  const arrayOfArrays = [The_smith_is, The_smith_is_looking_for, The_smith_carries];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+generate_TownTraveler = function(name){
+  const The_traveler_is = ["An exile", "A minstrel", "A peddler", "A pilgrim", "A refugee", "A sellsword", "A storyteller", "A treasure hunter"];
+  const The_traveler_is_seeking = ["Accomplices on a quest", "An audience to entertain", "The answer to a riddl", "A long lost friend", "The return of something stolen", "Revenge against a bitter rival", "A permanent home", "Steady work", "Traveling companions", "Drinking companions"];
+  const arrayOfArraysEnum = {The_traveler_is, The_traveler_is_seeking};
+  const arrayOfArrays = [The_traveler_is, The_traveler_is_seeking];
+  generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);
+};
+
 generate_Beast = function(name){
 	const beasts = ["Aberrant", "Demonic", "Infernal", "Celestial", "Fey", "Shadow", "Fire", "Sea", "Undead", "Legendary", "Storm", "Winter"];
 	beast = beasts[Math.floor(Math.random()*12)];
@@ -183,7 +790,7 @@ generate_MilitaryCampFollower = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_Caravan = function(name){
+generate_MerchantGuildCaravan = function(name){
   const The_caravan_is = ["A wagon train", "A long train of pack animals", "A train of pack animals with a few carts", "A train of pack animals with a few wagons", "A train of pack animals and livestock", "Traveling on foot with a few pack animals"];
   const The_caravan$$$s_pack_animals_are = ["One-humped camels", "Two-humped camels", "Large draft horses", "Reliable garrons", "Sure-footed ponies", "Mules", "Oxen", "Exotic beasts INLINE"];
   const Exotic_beasts = ["bison", "drakes", "elephants", "elk", "giant lizards", "zebras"]; 
@@ -323,7 +930,7 @@ generate_City = function(name){
   const arrayOfInlinesEnum ={Memorial,Monument,rolled_1,rolled_2,rolled_3,rolled_4,rolled_5,rolled_6,rolled_7,rolled_9,rolled_10,rolled_11,rolled_12,rolled_13,rolled_14,rolled_15,rolled_16,rolled_17,rolled_18,rolled_19,rolled_20};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_FisherCatchCold = function(name){
+generate_FisherFolkZCold = function(name){
   const Nearshore_catch_You_haul_in = ["A clam", "A crab", "A herring", "A lobster", "A mussel", "An oyster", "A prawn", "A salmon", "A smelt", "A rare catch (see below)"];
   const Deepsea_catch_You_haul_in = ["A crab", "A cod", "A haddock", "A halibut", "A mackerel", "An oyster", "A shrimp", "A squid", "A tuna", "A rare catch (see below)"];
   const Rare_catch_You_haul_in = ["A piece of junk INLINE", "An abalone", "A monkfish", "An octopus (fights, attacks)", "A sea bass (fights)", "A giant squid (fights, attacks)"];
@@ -572,7 +1179,7 @@ generate_ForestZEnchanted = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_EnemyCamp = function(name){
+generate_MilitaryCampZEnemy = function(name){
   const The_company$$$s_colors_are = ["Black", "Red / scarlet", "Gold", "Forest green", "Royal blue", "Violet", "Silver / light grey", "Bronze", "Tan / khaki", "Brown / beaver", "Dark grey / gunmetal", "White", "Maroon", "Sky blue", "Navy blue", "Dark brown / chocolate", "Teal / turquoise", "Yellow", "Orange", "Olive green"];
   const The_company$$$s_banner_features = ["A skull", "A clenched fist", "A flame", "A shield", "An arrow", "An axe", "A hammer", "A sword", "The sun", "The moon", "A bear", "A bull", "A dragon", "A falcon", "A lion", "A raven", "A scorpion", "A snake", "A stag", "A wolf"];
   const The_company$$$s_commander_is = ["A brilliant strategist", "A scion from a prominent family", "An outcast from a prominent family", "A dashing swashbuckler", "A brutish thug", "A celebrated war hero", "A disgraced knight", "An anointed knight", "A former arena champion", "A career soldie"];
@@ -679,7 +1286,7 @@ generate_Forest = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_FisherCatchFresh = function(name){
+generate_FisherFolkZFresh = function(name){
   const Coldwater_catch_You_haul_in = ["A bass (fights)", "A carp", "An eel", "An oyster", "A perch", "A salmon", "A smelt", "A sturgeon", "A trout", "A walleye"];
   const Warmwater_catch_You_haul_in = ["A carp", "A catfish (fights)", "An eel", "An oyster", "A perch", "A prawn", "A quipper (fights, attacks)", "A salmon", "A tilapia", "A trout"];
   const Swampwater_catch_You_haul_in = ["A bass (fights)", "A catfish (fights)", "A crayfish", "A crocodile (fights, attacks)", "An eel (fights)", "A prawn"];
@@ -734,7 +1341,7 @@ generate_ForestZZHauntedForestGraverobber = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_DungeonGuard = function(name){
+generate_PrisonGuard = function(name){
   const The_guard_took_this_job_for = ["The steady pay", "The steady pay", "The chance to bully others", "The chance to bully others", "To prove how tough he is", "To take out his aggression on criminals"];
   const On_the_guard$$$s_face_is = ["An unsightly scar", "A stupid grin", "A stupid grin", "A blank stare", "A blank stare", "A bushy mustache"];
   const arrayOfArraysEnum ={The_guard_took_this_job_for,On_the_guard$$$s_face_is};
@@ -842,7 +1449,7 @@ generate_BeastInfernal = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_DungeonJailer = function(name){
+generate_PrisonJailer = function(name){
   const The_jailer_is = ["A coward who likes to act tough", "A bully in every sense of the word", "A bastard son of a noble house", "A man who grew up among criminals", "A priest with a puritanical agenda", "A horrible sadist", "A mild-mannered man of faith", "A wicked little man"];
   const The_jailer_is_concerned_about = ["Rumors of an upcoming escape attempt", "Rumors of an upcoming escape attempt", "Losing his job after a messy prisoner death", "Facing a prisoner who creeps him out", "Facing a prisoner who creeps him out", "Ways to make a little extra silver"];
   const The_jailer_is_looking_to = ["Abuse someone who is defenseless", "Make himself feel powerful", "Make himself feel powerful", "Reach out to a disturbed prisoner", "Swap grisly tales", "Swap grisly tales"];
@@ -1331,7 +1938,7 @@ generate_TemplePriest = function(name){
   const arrayOfInlinesEnum ={A_prominently_displayed_holy_symbol};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_DungeonPrison = function(name){
+generate_Prison = function(name){
   const The_prison_is_located = ["On a small island on a remote coast", "On a small island near a city", "In a tower or annex of a castle", "Beneath a temple complex", "In an annex on a temple complex", "Beneath a town hall", "In an annex on a town hall", "Underneath a city, deep below ground", "Behind walls in a fortified rural location INLINE", "Below ground, in a hidden rural location INLINE", "Behind walls in a fortified wilderness location INLINE", "Below ground, in a hidden wilderness location INLINE"];
   const Behind_walls_in_a_fortified_rural_location = ["coast", "hills", "plains"]; 
   const Below_ground_in_a_hidden_rural_location = ["coast", "hills", "plains"]; 
@@ -1354,7 +1961,7 @@ generate_DungeonPrison = function(name){
   const arrayOfInlinesEnum ={Behind_walls_in_a_fortified_rural_location,Below_ground_in_a_hidden_rural_location,Behind_walls_in_a_fortified_wilderness_location,Below_ground_in_a_hidden_wilderness_location};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_DungeonPrisoner = function(name){
+generate_PrisonPrisoner = function(name){
   const The_prisoner_has = ["A long scraggly beard", "A long scraggly beard", "A patchy beard", "A patchy beard", "Skin draped loosely over his bones", "Boils and sores on his skin"];
   const The_prisoner_is_here_because = ["He stole something", "He killed someone", "He raped someone", "He advocated rebellion and unrest", "He committed an act of fraud", "Someone confused him with someone else"];
   const The_prisoner_has_ = ["No hope of escape","No hope of escape","A foolish optimism of his escape prospects","A tenuous grasp on sanity","A tenuous grasp on sanity","Been driven mad"];
@@ -1465,7 +2072,7 @@ generate_SerialKiller = function(name){
   const arrayOfInlinesEnum ={A_weapon_made_of_an_unusual_material};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_ServantCamp = function(name){
+generate_MilitaryCampServant = function(name){
   const The_servant_is = ["A squire from a noble house", "A frightened link boy", "A long-time valet or reformed criminal", "A reformed criminal-turned valet", "A prisoner of war", "A mysterious foreigner", "A simple-minded stable hand", "An expert on horses"];
   const The_servant_has = ["An awkward gait", "Incredibly large hands", "Incredibly large hands", "Quite an odor", "A ragged beard", "A ragged beard"];
   const The_servant_wants_to = ["Earn a little silver", "Go back home", "Show off an animal’s new trick", "Train with weapons and be a hero", "Earn the affection of his or her master", "Have a drink and a rest"];
@@ -1514,7 +2121,6 @@ generate_SoldierIndividualCamp = function(name){
 generate_MilitaryCampSoldier = function(name){
 	generate_SoldierIndividualCamp(name);
 };
-
 generate_BardSong = function(name){
   const The_song_is_about = ["A young common woman INLINE", "A common woman INLINE", "A noblewoman INLINE", "A priestess INLINE", "A witch INLINE", "A wizard INLINE", "A warrior INLINE", "A rogue INLINE", "A priest INLINE", "A common man INLINE", "A nobleman INLINE", "A great beast INLINE", "A diminutive beast INLINE", "An aquatic creature INLINE", "A bird INLINE", "A monster INLINE", "An event INLINE", "A wild location INLINE", "A settled place INLINE", "An item or object INLINE"];
   const and = ["A young common woman INLINE", "A common woman INLINE", "A noblewoman INLINE", "A priestess INLINE", "A witch INLINE", "A wizard INLINE", "A warrior INLINE", "A rogue INLINE", "A priest INLINE", "A common man INLINE", "A nobleman INLINE", "A great beast INLINE", "A diminutive beast INLINE", "An aquatic creature INLINE", "A bird INLINE", "A monster INLINE", "An event INLINE", "A wild location INLINE", "A settled place INLINE", "An item or object INLINE"];
@@ -1781,7 +2387,7 @@ generate_Vampire = function(name){
   const arrayOfInlinesEnum = {};
   generate_generic(arrayOfArraysEnum,arrayOfArrays,arrayOfInlinesEnum,name);};
 
-generate_FisherCatchWarm = function(name){
+generate_FisherFolkZWarm = function(name){
   const Nearshore_catch_You_haul_in = ["An anchovy", "A clam", "A crab", "A flounder", "A mackerel", "A mussel", "A scallop", "A sea bass", "A skate", "A rare catch (see below)"];
   const Deepsea_catch_You_haul_in = ["A cuttlefish", "A flounder", "A grouper", "A marlin", "A sardine", "A scallop", "A shrimp", "A snapper", "A tuna", "A rare catch (see below)"];
   const Rare_catch_You_haul_in = ["A piece of junk INLINE", "An abalone", "A barracuda (fights, attacks)", "A lobster", "A monkfish", "An octopus (fights, attacks)", "A reef shark (fights, attacks)", "A swordfish (fights)"];
